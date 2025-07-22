@@ -1,14 +1,4 @@
-apt update
-apt install sudo curl qtile lightdm rofi feh picom lxappearence nemo code vivaldi-stable ghostty neovim zsh oh-my-zsh -y
-
-apt update
-apt upgrade
-
-echo 'export PATH="/sbin:$PATH"' | tee -a ~/.zshrc ~/.bashrc > /dev/null
-
-usermod -aG sudo $1
-
-chsh -s $(which zsh)#!/bin/bash
+#!/bin/bash
 
 # VSCode
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/microsoft.gpg > /dev/null
@@ -43,3 +33,7 @@ usermod -aG sudo $1
 chsh -s $(which zsh)
 
 # Replace Config Files
+
+# mv ./ghostty/config ~/.config/ghostty/config
+# mv ./qtile/config.py ~/.config/qtile/config.py
+# mv ./zsh/.zshrc ~/.zshrc
