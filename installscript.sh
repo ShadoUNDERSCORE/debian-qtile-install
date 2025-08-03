@@ -25,15 +25,14 @@ echo "deb [arch=amd64] https://repo.vivaldi.com/archive/deb/ stable main" \
   | sudo tee /etc/apt/sources.list.d/vivaldi.list > /dev/null
 
 apt update
-apt install -y sudo curl qtile lightdm rofi feh picom lxappearence nemo codium vivaldi-stable ghostty \
-  neovim zsh oh-my-zsh python3-pip build-essential network-manager-gnome xserver-xorg x11-utils x11-server-utils \
-  papirus-icon-theme fonts-noto-color-emoji p7zip-full pipewire pipewire-audio pipewire-pulse wireplumber pavucontrol \
-  bluetooth bluez blueman volumeicon
+apt install -y sudo curl qtile lightdm rofi feh lxappearence nemo codium vivaldi-stable ghostty \
+  neovim python3-pip build-essential xserver-xorg x11-utils x11-server-utils \
+  fonts-noto-color-emoji p7zip-full bluetooth bluez blueman timeshift
 
 apt update
 apt upgrade
 
-echo 'export PATH="/sbin:$PATH"' | tee -a ~/.zshrc ~/.bashrc > /dev/null
+# echo 'export PATH="/sbin:$PATH"' | tee -a ~/.zshrc ~/.bashrc > /dev/null
 
 if ["$1"]; then
   usermod -aG sudo $1
@@ -41,8 +40,15 @@ fi
 
 chsh -s $(which zsh)
 
+systemctl enable bluetooth
+
 # Replace Config Files
 
 # mv ./ghostty/config ~/.config/ghostty/config
 # mv ./qtile/config.py ~/.config/qtile/config.py
 # mv ./zsh/.zshrc ~/.zshrc
+
+# Non apt installs
+
+# picom with blur
+#
