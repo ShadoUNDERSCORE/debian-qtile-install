@@ -44,6 +44,7 @@ terminal = "ghostty"
 modal_keys = [
             Key([], "r", lazy.spawn("rofi -show drun"), desc="Run Rofi app launcher"),
             Key(["control"], "w", lazy.window.kill(), desc="Close focused window"),
+            Key([], "g", lazy.next_screen(), desc="Focus Next Monitor"),
             Key([], "h", lazy.layout.left(), desc="Move focus to left"),
             Key([], "l", lazy.layout.right(), desc="Move focus to right"),
             Key([], "j", lazy.layout.down(), desc="Move focus down"),
@@ -60,8 +61,12 @@ modal_keys = [
             Key([], "Return", lazy.spawn(terminal), desc="Launch terminal"),
             Key(["control"], "r", lazy.reload_config(), desc="Reload the config"),
             Key([], "f", lazy.window.toggle_fullscreen(), desc="Toggle fullscreen on the focused window"),
-            Key([], "i", lazy.ungrab_chord(), desc="Exit command mode"),
             Key([], "KP_Insert", lazy.ungrab_chord(), desc="Exit command mode"),
+            *[Key([], k, lazy.ungrab_chord()) for k in [
+            "a","b","c","d","e","i","m",
+            "o","p","q","s","t","u","v","w","y","z",
+            "6","7","8","9","0",
+            ]]
         ]
 
 keys = [
@@ -142,7 +147,8 @@ for vt in range(1, 8):
     )
 
 
-groups = [Group(i) for i in "12345"]
+matches = [[Match(wm_class="vscodium")], [Match(wm_class="vivaldi-stable")], [Match(wm_class="ghostty")], [], []]
+groups = [Group(i, matches=matches[int(i)-1]) for i in "12345"]
 
 for i in groups:
     modal_keys.extend(
@@ -199,8 +205,8 @@ screens = [
                 widget.GroupBox(dsable_drag=True,
                     inactive="#0B1D51",
                     this_current_screen_border="#725CAD",
-                    this_screen_border="#0B1D51",
-                    other_current_screen_border="#725CAD",
+                    this_screen_border="#725CAD",
+                    other_current_screen_border="#0B1D51",
                     other_screen_border="#0B1D51",
                     highlight_method="line",
                 ),
@@ -214,7 +220,7 @@ screens = [
                 widget.Spacer(length=bar.STRETCH),
                 widget.Systray(),
                 widget.Spacer(length=20),
-                widget.Volume(theme_path="~/.config/qtile/icons"),
+                widget.Volume(theme_path="/home/elijah/.config/qtile/icons"),
                 widget.NetGraph(interface="eno1"),
                 widget.Spacer(length=10),
                 widget.Image(filename="~/.config/qtile/icons/CPU-icon.png", margin_y=10),
@@ -239,8 +245,8 @@ screens = [
                 widget.GroupBox(dsable_drag=True,
                     inactive="#0B1D51",
                     this_current_screen_border="#725CAD",
-                    this_screen_border="#0B1D51",
-                    other_current_screen_border="#725CAD",
+                    this_screen_border="#725CAD",
+                    other_current_screen_border="#0B1D51",
                     other_screen_border="#0B1D51",
                     highlight_method="line",
                 ),
