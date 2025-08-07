@@ -1,6 +1,6 @@
 # debian-qtile-install
 
-### Usage: `./installscript.sh <username>`
+### Usage: `./installscript.sh <username to make a sudoer>`
 
 
 NOTE:
